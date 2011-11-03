@@ -1256,6 +1256,12 @@ class Gem::Specification
       File.join full_gem_path, path
     end
 
+    unless extensions.empty?
+      paths += require_paths.map do |path|
+        File.join ext_dir, path
+      end
+    end
+
     # gem directories must come after -I and ENV['RUBYLIB']
     insert_index = Gem.load_path_insert_index
 
@@ -1374,11 +1380,16 @@ class Gem::Specification
 
   def contains_requirable_file? file
     root     = full_gem_path
+    ext      = ext_dir
     suffixes = Gem.suffixes
 
     require_paths.any? do |lib|
-      base = "#{root}/#{lib}/#{file}"
-      suffixes.any? { |suf| File.file? "#{base}#{suf}" }
+      base = ["#{root}/#{lib}/#{file}"]
+      base << "#{ext}/#{lib}/#{file}" unless extensions.empty?
+
+      base.any? do |path|
+        suffixes.any? { |suf| File.file? "#{path}#{suf}" }
+      end
     end
   end
 
@@ -1671,6 +1682,23 @@ class Gem::Specification
   def gems_dir
     # TODO: this logic seems terribly broken, but tests fail if just base_dir
     @gems_dir ||= File.join(loaded_from && base_dir || Gem.dir, "gems")
+  end
+
+  ##
+  # Returns the full path to this spec's ext directory.
+  # eg: /usr/local/lib/ruby/1.8/exts/mygem-1.0
+
+  def ext_dir
+    @gem_dir ||= File.expand_path File.join(exts_dir, full_name)
+  end
+
+  ##
+  # Returns the full path to the exts directory containing this spec's
+  # gem directory. eg: /usr/local/lib/ruby/1.8/exts
+
+  def exts_dir
+    # TODO: this logic seems terribly broken, but tests fail if just base_dir
+    @exts_dir ||= File.join(loaded_from && base_dir || Gem.dir, "exts")
   end
 
   ##
