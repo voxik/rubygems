@@ -1689,16 +1689,15 @@ class Gem::Specification
   # eg: /usr/local/lib/ruby/1.8/exts/mygem-1.0
 
   def ext_dir
-    @gem_dir ||= File.expand_path File.join(exts_dir, full_name)
+    @ext_dir ||= File.join exts_dir, full_name, require_paths.first
   end
 
   ##
   # Returns the full path to the exts directory containing this spec's
-  # gem directory. eg: /usr/local/lib/ruby/1.8/exts
+  # gem directory. eg: /usr/local/lib/ruby/1.8/gems
 
   def exts_dir
-    # TODO: this logic seems terribly broken, but tests fail if just base_dir
-    @exts_dir ||= File.join(loaded_from && base_dir || Gem.dir, "exts")
+    @exts_dir ||= gems_dir
   end
 
   ##
