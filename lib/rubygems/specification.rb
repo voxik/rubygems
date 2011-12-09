@@ -1256,7 +1256,7 @@ class Gem::Specification
       File.join full_gem_path, path
     end
 
-    paths << ext_dir unless extensions.empty? || paths.include?(ext_dir)
+    paths << File.join(ext_dir, require_paths.first) unless extensions.empty? || (ext_dir == full_gem_path)
 
     # gem directories must come after -I and ENV['RUBYLIB']
     insert_index = Gem.load_path_insert_index
@@ -1685,7 +1685,7 @@ class Gem::Specification
   # eg: /usr/local/lib/ruby/1.8/exts/mygem-1.0
 
   def ext_dir
-    @ext_dir ||= File.join exts_dir, full_name, require_paths.first
+    @ext_dir ||= File.join exts_dir, full_name
   end
 
   ##

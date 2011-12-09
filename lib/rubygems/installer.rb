@@ -642,7 +642,7 @@ TEXT
       say "This could take a while..."
     end
 
-    dest_path = spec.ext_dir
+    dest_path = File.join spec.ext_dir, spec.require_paths.first
     ran_rake = false # only run rake once
 
     spec.extensions.each do |extension|
