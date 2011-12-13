@@ -1693,10 +1693,7 @@ class Gem::Specification
   # gem directory. eg: /usr/local/lib/ruby/1.8/gems
 
   def exts_dir
-    @exts_dir ||= begin
-      dirs = Gem.default_dirs.detect {|location, paths| paths[:gem_dir] == base_dir}
-      dirs ? File.join(dirs.last[:ext_dir], 'exts') : gems_dir
-    end
+    @exts_dir ||= Gem.default_ext_dir_for(base_dir) || gems_dir
   end
 
   ##
