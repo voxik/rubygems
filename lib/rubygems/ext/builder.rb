@@ -21,6 +21,10 @@ class Gem::Ext::Builder
     mf = mf.gsub(/^RUBYLIBDIR\s*=\s*\$[^$]*/, "RUBYLIBDIR = #{dest_path}")
     mf = mf.gsub(/\s*\S+\.time$/, "")
 
+    # Folder creation was dropped in r37016 for some reasons :/
+    target_prefix = mf[/^target_prefix\s*=\s*(.*)/, 1]
+    FileUtils.mkdir_p File.join(dest_path, target_prefix rescue nil # in case of perms issues -- lame
+
     File.open('Makefile', 'wb') {|f| f.print mf}
 
     # try to find make program from Ruby configure arguments first
