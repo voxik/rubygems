@@ -642,7 +642,7 @@ TEXT
       say "This could take a while..."
     end
 
-    dest_path = File.join(options[:install_dir] ? gem_dir : spec.ext_dir, spec.require_paths.first)
+    dest_path = File.join(@install_dir ? gem_dir : spec.ext_dir, spec.require_paths.first)
     ran_rake = false # only run rake once
 
     spec.extensions.each do |extension|
