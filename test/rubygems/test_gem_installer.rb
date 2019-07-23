@@ -2026,6 +2026,13 @@ gem 'other', version
     spec = util_spec 'a'
     installer = Gem::Installer.for_spec spec, :install_as_default => true
     installer.install
+    assert_predicate spec, :loaded_from
+  end
+
+  def test_default_gem_predicate
+    spec = util_spec 'a'
+    installer = Gem::Installer.for_spec spec, :install_as_default => true
+    installer.install
     assert_predicate spec, :default_gem?
   end
 

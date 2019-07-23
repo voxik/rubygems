@@ -791,6 +791,7 @@ class Gem::TestCase < (defined?(Minitest::Test) ? Minitest::Test : MiniTest::Uni
     spec = util_spec name, version, deps
 
     spec.loaded_from = File.join(@default_spec_dir, spec.spec_name)
+    spec.default_gem = true
     spec.files = files
 
     lib_dir = File.join(@tempdir, "default_gems", "lib")

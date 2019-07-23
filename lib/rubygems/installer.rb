@@ -305,6 +305,7 @@ class Gem::Installer
     else
       spec.loaded_from = spec_file
     end
+    spec.default_gem = @options[:install_as_default]
 
     # Completely remove any previous gem files
     FileUtils.rm_rf gem_dir

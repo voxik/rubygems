@@ -2061,7 +2061,8 @@ dependencies: []
     default_dir =
       File.join Gem.default_specifications_dir, @a1.spec_name
 
-    @a1.instance_variable_set :@loaded_from, default_dir
+    @a1.loaded_from = default_dir
+    @a1.default_gem = true
 
     assert_equal Gem.default_dir, @a1.base_dir
   end

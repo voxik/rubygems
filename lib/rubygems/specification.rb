@@ -1132,6 +1132,7 @@ class Gem::Specification < Gem::BasicSpecification
 
       if Gem::Specification === _spec
         _spec.loaded_from = File.expand_path file.to_s
+        _spec.default_gem = File.dirname(_spec.loaded_from) == Gem.default_specifications_dir
         LOAD_CACHE_MUTEX.synchronize do
           prev = LOAD_CACHE[file]
           if prev
