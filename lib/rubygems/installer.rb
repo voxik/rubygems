@@ -691,9 +691,9 @@ class Gem::Installer
     @force               = options[:force]
     @install_dir         = options[:install_dir]
     if options[:install_as_default]
-      @gem_home          = Gem.default_gems_dir
+      @gem_home = Gem.default_gems_dir
     else
-      @gem_home          = options[:install_dir] || Gem.dir
+      @gem_home = options[:install_dir] || Gem.dir
     end
     @ignore_dependencies = options[:ignore_dependencies]
     @format_executable   = options[:format_executable]
