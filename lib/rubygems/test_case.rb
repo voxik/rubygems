@@ -381,8 +381,8 @@ class Gem::TestCase < (defined?(Minitest::Test) ? Minitest::Test : MiniTest::Uni
       RbConfig::CONFIG['default_gem_home'] = @default_dir
     else
       Gem.instance_variable_set(:@default_dir, @default_dir)
-      Gem.instance_variable_set(:@default_gems_dir, @default_gems_dir)
     end
+    Gem.instance_variable_set(:@default_gems_dir, @default_gems_dir)
     FileUtils.mkdir_p @default_spec_dir
     FileUtils.mkdir_p @default_gems_spec_dir
 
