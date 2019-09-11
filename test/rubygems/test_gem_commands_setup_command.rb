@@ -56,12 +56,11 @@ class TestGemCommandsSetupCommand < Gem::TestCase
 
     FileUtils.mkdir_p 'default/gems'
 
-    gemspec = Gem::Specification.new
-    gemspec.author = "Us"
-    gemspec.name = "bundler"
-    gemspec.version = BUNDLER_VERS
-    gemspec.bindir = "exe"
-    gemspec.executables = ["bundle"]
+    gemspec = util_spec 'bundler', BUNDLER_VERS do |s|
+      s.author = "Us"
+      s.bindir = "exe"
+      s.executables = ["bundle"]
+    end
 
     File.open 'bundler/bundler.gemspec',   'w' do |io|
       io.puts gemspec.to_ruby
