@@ -1008,8 +1008,7 @@ gem 'other', version
     default_spec.executables = 'executable'
     install_default_gems default_spec
 
-    exe = File.join @gemhome, 'bin', 'executable'
-
+    exe = File.join default_spec.bin_dir, 'executable'
     assert_path_exists exe, "default gem's executable not installed"
 
     installer = util_setup_installer do |spec|
@@ -1027,6 +1026,9 @@ gem 'other', version
         @newspec = installer.install
       end
     end
+
+    exe = File.join @newspec.bin_dir, 'executable'
+    assert_path_exists exe, "user installed gem's executable not installed"
 
     e = assert_raises RuntimeError do
       instance_eval File.read(exe)
