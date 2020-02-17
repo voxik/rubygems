@@ -441,6 +441,7 @@ class Gem::Installer
   def default_spec_file
     spec_file
   end
+  deprecate :default_spec_file, :none, 2021, 02
 
   ##
   # Writes the .gemspec specification (in Ruby) to the gem home's
